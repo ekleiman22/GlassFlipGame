@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Flip Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+           /* text-align: center;*/
+            margin-top: 50px;
+        }
+
+        .glass {
+            display: inline-block;
+            width: 50px;
+            height: 100px;
+            background-color: blue;
+            border-radius: 25px 25px 0 0;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+            .glass.up {
+                background-color: green;
+                border-radius: 0 0 25px 25px;
+            }
+        .center {
+            margin: auto;
+            width: 70%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+        #glass-container {
+            margin-top: 20px;
+        }
+
+        input[type="number"] {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+   
+        <div class="center" style="margin-bottom:20px">
+            There are n glasses on the table,
+            all standing upside down. In one move,
+            you are allowed to turn over exactly n − 1 of them.
+            Determine all values of n for which all
+            the glasses can be turned up, and outline
+            an algorithm that does this
+            in the minimum number of moves.(This puzzle is from 
+            Algorithmic Puzzles – Anany Levitin, Maria Levitin)
+        </div>
+    
+    <div>
+        <label for="numGlasses">Number of glasses:</label>
+        <input type="number" id="numGlasses" value="5" min="1">
+        <button onclick="createGlasses()">Set</button>
+    </div>
+    <div id="glass-container"></div>
+    <div>
+        Rule: for to flip all glasses but one do click on a glass
+        that should not be flipped
+    </div>
+    <script>
+        function createGlasses() {
+            const container = document.getElementById('glass-container');
+            container.innerHTML = ''; // Clear existing glasses
+            const n = parseInt(document.getElementById('numGlasses').value);
+
+            for (let i = 0; i < n; i++) {
+                const glass = document.createElement('div');
+                glass.classList.add('glass');
+                glass.addEventListener('click', () => {
+                    flipGlasses(i, n);
+                });
+                container.appendChild(glass);
+            }
+        }
+
+        function flipGlasses(index, n) {
+            const glasses = document.querySelectorAll('.glass');
+            glasses.forEach((glass, i) => {
+                if (i !== index) {
+                    glass.classList.toggle('up');
+                }
+            });
+        }
+
+        // Initialize with default value
+        createGlasses();
+    </script>
+</body>
+</html>
